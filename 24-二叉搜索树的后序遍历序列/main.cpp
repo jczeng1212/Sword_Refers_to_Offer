@@ -23,12 +23,12 @@ using namespace std;
     true
 */
 //应如何修改？
-class Solution {
+class Solution1{
 public:
     bool VerifySquenceOfBST(vector<int> sequence) {
         
         if( sequence.size() == 0 ){
-            return true;
+            return false;
         }
         
         int lastPos = sequence.size();
@@ -57,6 +57,53 @@ public:
 
         return VerifySquenceOfBST(left) && VerifySquenceOfBST(right);
         
+    }
+};
+
+
+class Solution {
+public:
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        return bst(sequence, 0, sequence.size() - 1);
+    }
+
+private:
+    bool bst(vector<int> seq, int begin, int end){
+        if(seq.empty() || begin > end){
+            return false;
+        }
+        
+        //根结点
+        int root = seq[end];
+        
+        //在二叉搜索树中左子树的结点小于根结点
+        int i = begin;
+        for(; i < end; ++i){
+            if(seq[i] > root){
+                break;
+            }
+        }
+        
+        //在二叉搜索书中右子树的结点大于根结点
+        for(int j = i; j < end; ++j){
+            if(seq[j] < root){
+                return false;
+            }
+        }
+        
+        //递归判断左子树是不是二叉搜索树
+        bool left = true;
+        if(i > begin){
+            left = bst(seq, begin, i - 1);
+        }
+        
+        //递归判断右子树是不是二叉搜索树
+        bool right = true;
+        if(i < end - 1){
+            right = bst(seq, i , end - 1);
+        }
+        
+        return left && right;
     }
 };
 
