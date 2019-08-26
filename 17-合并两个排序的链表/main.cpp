@@ -100,8 +100,8 @@ public:
 
         ListNode* pMergedHead = NULL;
         if(pHead1->val < pHead2->val){
-            pMergedHead = pHead1;
-            pMergedHead->next = Merge(pHead1->next, pHead2);
+            pMergedHead = pHead1;   //pHead1和pHead2，谁的值小，就把谁的值作为合并后的链表的头结点，并把较小值的指针后移。
+            pMergedHead->next = Merge(pHead1->next, pHead2);    //递归求出剩余结点的头结点，并将该头结点和之前得到的头结点连接起来
         }else{
             pMergedHead = pHead2;
             pMergedHead->next = Merge(pHead1, pHead2->next);
