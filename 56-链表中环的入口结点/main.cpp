@@ -10,7 +10,7 @@ struct ListNode{
         }
 };
 
-/*
+/*  本方法时间复杂度较高
     step1.先判断链表中是否有环。设置两个指针，一快一慢，这里设置快一步。
         若有环，则两个指针一定相遇于环内，然后同时移动并计数，当再次回到该结点时，就求出环长circleLen；若没有，返回NULL；
     step2.设置两个指针p1和p2，其中p1先走circleLen步，然后p1和p2同时走，然后他们相遇，相遇的结点就是环的入口结点
@@ -53,7 +53,7 @@ private:
         ListNode *lowP = pHead;
         quickP = quickP->next;
 
-        int count = 0;
+        int count = 0;  //记录环长
         while( quickP ){
             if (quickP->val == lowP->val ){                
                 int commonNode = quickP->val;
@@ -73,6 +73,74 @@ private:
         return count;
     }
 
+};
+
+/*
+    时间复杂度改进方法
+*/
+class Solution{
+public:
+    ListNode* EntryNodeOfLoop(ListNode* pHead){
+        if( pHead == NULL ){
+            return NULL;
+        }
+
+        ListNode *commonNode = GetCommonNode(pHead);
+        if( commonNode == NULL ){
+            return NULL;
+        }
+
+        //求环长
+        ListNode *p = commonNode;
+        int circleLen = 0;
+        while( p->next != commonNode ){
+            circleLen++;
+            p = p->next;
+        }
+        circleLen++;
+
+        ListNode *p1 = pHead;
+        ListNode *p2 = pHead;
+        while( circleLen ){ //让p2先走环长步
+            p2 = p2->next;
+            circleLen--;
+        }
+        
+        while( p2 ){
+            if( p2 == p1 ){
+                return p2;
+            }
+
+            p2 = p2->next;
+            p1 = p1->next;
+        }
+    }
+
+private:
+    ListNode *GetCommonNode(ListNode *pHead){    //返回环内某个公共的结点
+        if( pHead == NULL ){
+            return NULL;
+        }
+
+        ListNode *quickP = pHead;
+        ListNode *lowP = pHead;
+        quickP = quickP->next;
+        if( quickP == NULL ){
+            return NULL;
+        }
+
+        while( quickP ){
+            if( quickP == lowP ){
+                return quickP;
+            }
+            quickP = quickP->next;
+            lowP = lowP->next;
+
+            if( quickP->next != NULL ){
+                quickP = quickP->next;
+            }
+        }
+    }
 };
 
 int main(){
