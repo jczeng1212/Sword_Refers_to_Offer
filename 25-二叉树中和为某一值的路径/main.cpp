@@ -15,6 +15,8 @@ struct TreeNode {
 };
 
 class Solution {
+    vector<vector<int> > result;
+    vector<int> tmp;
 public:
     vector<vector<int> > FindPath(TreeNode* root,int expectNumber){
         if(root == NULL){
@@ -35,9 +37,7 @@ public:
         tmp.pop_back();
         return result;
     }
-private:
-    vector<vector<int> > result;
-    vector<int> tmp;
+    
 };
 
 int main(){
