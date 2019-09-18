@@ -61,7 +61,7 @@ public:
 
 
 
-### Code1 
+### Code1
 
 **日期**：2019.09.05
 
@@ -86,6 +86,11 @@ public:
 class Solution {
 public:
     int TreeDepth(TreeNode* pRoot){
+        /*
+        这里的条件判断应该有两层含义：
+        1.对第一次的pRoot判断是否为空树
+        2.后面，当pRoot为NULL时，表明深度为0。即pRoot为叶子的结点，其深度为0
+        */
         if( pRoot == NULL ){
             return 0;
         }
@@ -113,4 +118,25 @@ public:
 };
 ```
 
+
+
+
+
+### Code2
+
+**日期**：2019
+
+**方法**：层序遍历
+
+**具体思路**：
+
+> 
+>
+> 
+
+**Code**：
+
+```c++
+
+```
 

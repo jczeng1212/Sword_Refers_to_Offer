@@ -10,58 +10,33 @@
 
 ## 1.一刷情况
 
-**日期**：2019.09.05
+**日期**：2019.09.17
 
 **Code**：
 
 ```c++
 /*
-    平衡二叉树要求：树的所有叶子结点深度之差小于等于1
-    首先肯定是递归的思路。
-    递归边界：结点为NULL时，返回。
-    递归方程：求某一根结点的树的深度，就是求max(其两个子树的深度)+1。这样就把大问题化到小问题上了。
-    到达叶结点，记录树的深度。主要是记录两个深度：一个是最小的深度，一个是最大的深度。
-    比较这两个深度，差的绝对值超过1，就返回false，否则返回true。  
+平衡二叉树：树中的以任何结点为根的树都为平衡二叉树。
+对树进行遍历，对每个结点做一次查询是否为平衡二叉树即可。
 */
-
 class Solution {
 public:
-    int maxDepth = 0;
-    int minDepth = 0;
-    int depth;
-    
-
     bool IsBalanced_Solution(TreeNode* pRoot) {
-        if( pRoot == NULL ){
-            return true;
+        
+
+        if( pRoot->left ){
+            IsBalanced_Solution( pRoot->left );
         }
-
-        if( pRoot->left == NULL && pRoot->right == NULL ){
-            depth++;    //到达叶结点，则深度加一
-            if( depth > maxDepth ){
-                maxDepth = depth;
-            }
-            if( depth < minDepth ){
-                minDepth = depth;
-            }
-
-            if( (maxDepth - minDepth) > 1  ){
-                return true;
-            }
-        }//if
-
-        depth = 0;
-        IsBalanced_Solution(pRoot->left);
-        IsBalanced_Solution(pRoot->right);
-
-        return false;
+        if( pRoot->right ){
+            IsBalanced_Solution( pRoot->right );
+        }
     }
 };
 ```
 
-**掌握情况**：
+**掌握情况**：完全不会
 
-**存在问题**：
+**存在问题**：不会写，思路不对
 
 
 
@@ -71,9 +46,53 @@ public:
 
 ### Code1 
 
-**日期**：2019.09.05
+**日期**：2019.09.017
 
-**方法**：按照刷题基础的说明，简明扼要说明方法是什么，用了什么数据结构等等。
+**方法**：需要重复遍历结点多次
+
+**具体思路**：见剑指offer
+
+**Code**：
+
+```c++
+class Solution{
+public:
+    bool IsBalanced_Solution(TreeNode* pRoot) {
+        if( pRoot == NULL ){
+            return true;
+        }
+
+        int left = TreeDepth( pRoot->left );
+        int right = TreeDepth( pRoot->right );
+
+        int diff = left - right;
+
+        if( diff > 1 || diff < -1 )
+            return false;
+        else
+            return IsBalanced_Solution( pRoot->left ) && IsBalanced_Solution( pRoot->right );
+
+    }
+
+    int TreeDepth(TreeNode *pRoot){
+        if( pRoot == NULL ){
+            return 0;
+        }
+
+        int left = TreeDepth( pRoot->left );
+        int right = TreeDepth( pRoot->right );
+
+        return max(left, right) + 1;
+
+    }
+};
+```
+
+### Code2 
+
+**日期**：2019.
+
+**方法**：（未研究）每个结点仅遍历一次，见剑指offer
 
 **具体思路**：
 
@@ -82,5 +101,4 @@ public:
 ```c++
 
 ```
-
 
