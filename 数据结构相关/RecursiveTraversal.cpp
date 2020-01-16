@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 using namespace std;
 
 struct TreeNode {
@@ -24,6 +25,25 @@ void PreOrder( TreeNode *root ){
             PreOrder(root->right);
         }
     }
+
+void LayerOrder( TreeNode *root ){
+    if( root == NULL ){
+        return NULL;
+    }
+    queue<TreeNode*> q;
+    q.push(root);
+    while( !q.empty() ){
+        TreeNode* node = q.front();
+        print(node->val);
+        q.pop();
+        if( node->left != NULL ){
+            q.push(node->left);
+        }
+        if( node->right != NULL ){
+            q.push(node->right);
+        }
+    }
+}
 
 int main(){
     TreeNode BTree[5] = {10, 5, 12, 4, 7};
