@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 
+//迭代实现
 int binary_search(const int arr[], int start, int end, int key) {
     int ret = -1;       // 未搜索到数据返回-1下标
     

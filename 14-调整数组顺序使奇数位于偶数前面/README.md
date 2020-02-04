@@ -87,7 +87,7 @@ public:
 
 ### Code1 
 
-**日期**：2020.01.
+**日期**：2020.02.01
 
 **方法**：简明扼要说明方法是什么，用了什么数据结构等等。
 
@@ -98,7 +98,68 @@ public:
 **Code**：
 
 ```c++
+//链接：https://www.nowcoder.com/questionTerminal/beb5aa231adc45b2a5dcc5b62c93f593?f=discussion
+//来源：牛客网
 
+//两个思路吧，第一个思路：类似冒泡算法，前偶后奇数就交换
+class Solution {
+public:
+    void reOrderArray(vector<int> &array) {
+ 
+        for( int i = 0; i < array.size()-1; i++){
+            for( int j = array.size() - 1; j>i; j--){
+                if( array[j] % 2 == 1 && array[j - 1]%2 == 0){ //前偶后奇交换
+                    swap(array[j], array[j-1]);
+                }
+            }
+        }
+
+        /*作者：牛客1165692号
+        链接：https://www.nowcoder.com/questionTerminal/beb5aa231adc45b2a5dcc5b62c93f593?f=discussion
+        来源：牛客网
+
+        这个就是冒泡排序的思路，可以自己再纸上画一画。首先确定外层循环次数，即array.size(),然后进行内层循环，代码中是从后面往前面排序，比如2，1，4，3。如果满足前偶后奇数，交换循序，变成1,2,3,4，其中首尾已经排好序了，故结束条件设置为array.size()-i,然后从倒数第二位到顺数第二位再排序。
+        其实第一层循环只需要array.size()/2.因为内层循环一次，能将首尾分别拍好一个数字。还有就是可以直接从前面往后面排序。参考楼主的思路：
+        */
+
+        for(int i = 0; i < (array.size())/2; i++){
+            for(int j = 0; j < (array.size()-i); j++){
+                if(((array[j]%2) == 0) && ((array[j+1]%2) == 1)){
+                    swap(array[j] ,array[j+1]);
+                }
+            }
+        }
+    }
+};
+ 
+//第二个思路：再创建一个数组，将偶数保存到一个新数组中
+class Solution{
+public:
+    void reOrderArray(vector<int> &array) {
+ 
+        vector<int> array_temp;
+        vector<int>::iterator ib1, ie1;
+        ib1 = array.begin();
+ 
+        while( ib1 != array.end() ){    //遇见偶数，就保存到新数组，同时从原数组中删除
+            if(*ib1 % 2 == 0) {
+                array_temp.push_back(*ib1);
+                ib1 = array.erase(ib1);
+            }else{
+                ib1++;
+            }
+        }
+
+        vector<int>::iterator ib2, ie2;
+        ib2 = array_temp.begin();
+        ie2 = array_temp.end();
+        
+        while( ib2 != ie2 ){
+            array.push_back(*ib2);  //将新数组的数添加到老数组
+            ib2++;
+        }
+    }
+};
 ```
 
 
