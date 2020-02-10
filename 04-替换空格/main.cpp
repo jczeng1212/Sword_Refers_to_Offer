@@ -29,10 +29,10 @@ public:
 //链接：https://www.nowcoder.com/questionTerminal/4060ac7e3e404ad1a894ef3e17650423?f=discussion
 //来源：牛客网
 //即剑指offer解法
-/*注意：
-1. '\0'为字符串结束标志
+//从后往前替换的方法
+//从后往前，每个空格后面的字符只需要移动一次。从前往后，当遇到第一个空格时，要移动第一个空格后所有的字符一次；当遇到第二个空格时，要移动第二个空格后所有的字符一次；以此类推。所以总的移动次数会更多。
+//注意：'\0'为字符串结束标志
 
-*/
 class Solution {
 public:
 void replaceSpace(char *str,int length) {
